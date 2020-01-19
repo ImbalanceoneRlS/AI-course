@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="PublishConfigData" autoUpload="Always" serverName="RobolabHeadPi" showAutoUploadSettingsWarning="false">
+  <component name="PublishConfigData" autoUpload="Always" serverName="homePi2" showAutoUploadSettingsWarning="false">
     <serverData>
       <paths name="Copy of project-level server 'rosmelodic-pi4-home'">
         <serverdata>
@@ -10,6 +10,13 @@
         </serverdata>
       </paths>
       <paths name="RobolabHeadPi">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/home/pi/AIcurs" local="$PROJECT_DIR$" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="homePi2">
         <serverdata>
           <mappings>
             <mapping deploy="/home/pi/AIcurs" local="$PROJECT_DIR$" />
