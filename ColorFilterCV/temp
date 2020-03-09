@@ -1,0 +1,19 @@
+import ArdSerial.ArdSender as As
+
+
+cap = cv2.VideoCapture("/dev/video0") #захват видео с камеры
+width  = cap.get(3) # float ширина видео
+height = cap.get(4) # float высота видео
+center = (width//2,height//2) # центры вашего изображения
+ArdSer = As.ArdunoSender() # объект для работы с ардуино
+ArdSer.SendStringCommand("i") # отправить голову в нулевое положение
+
+# вот так поворачивается каждый кадр
+M = cv2.getRotationMatrix2D(center, 270, 1)
+img = cv2.warpAffine(img, M, (int(width), int(height)))
+
+ArdSer.SendStringCommand("b") # повернуть голову направо
+
+ArdSer.SendStringCommand("a") # повернуть голову направо
+
+print(ArdSer.SerialReadLines()) #необходимо периодически считывать что бы не забивать буфер обмена
