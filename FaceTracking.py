@@ -1,3 +1,6 @@
+from picamera.array import PiRGBArray
+from picamera import PiCamera
+import time
 import cv2
 import numpy as np
 import ArdSerial.ArdSender as As
@@ -23,18 +26,14 @@ def HeadMove(Coord):
     print(ArdSer.SerialReadLines())
 
 def FaceDetection(image):
-    print(image.shape)
     gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
     faces = face_cascade.detectMultiScale(
-    gray,
-    scaleFactor= 1.1,
-    minNeighbors= 5,
-    minSize=(10, 10)
+        gray,
+        scaleFactor= 1.1,
+        minNeighbors= 5,
+        minSize=(10, 10)
     )
-
-    faces_detected = "Лиц обнаружено: " + format(len(faces))
-    print(faces_detected)
-# Рисуем квадраты вокруг лиц
+    # Рисуем квадраты вокруг лиц
     for (x, y, w, h) in faces:
         cv2.rectangle(image, (x, y), (x+w, y+h), (255, 0, 0), 2)
     if len(faces)>0:
@@ -52,24 +51,6 @@ while True:
     flag, img = cap.read()
     M = cv2.getRotationMatrix2D(center, 270, 1)
     img = cv2.warpAffine(img, M, (int(width), int(height)))
-    # преобразуем RGB картинку в HSV модель
-    hsv = cv2.cvtColor(img, cv2.COLOR_RGB2HSV )
-    # применяем цветовой фильтр
-    thresh = cv2.inRange(hsv, hsv_min, hsv_max)
-
-
-    # вычисляем моменты изображения
-    moments = cv2.moments(thresh, 1)
-    dM01 = moments['m01']
-    dM10 = moments['m10']
-    dArea = moments['m00']
-    # будем реагировать только на те моменты,
-    # которые содержать больше 100 пикселей
-    if dArea > 100:
-        x = int(dM10 / dArea)
-        y = int(dM01 / dArea)
-        cv2.circle(img, (x, y), 10, (0,0,255), -1)
-        #HeadMove((x,y))
     img,x,y = FaceDetection(img)
     if x != None and y!= None:
         HeadMove((x,y))
