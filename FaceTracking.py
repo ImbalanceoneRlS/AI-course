@@ -4,24 +4,33 @@ import time
 import cv2
 import numpy as np
 import ArdSerial.ArdSender as As
+import sounds.ttsGoogleTranslateAPI as ttsGT
 
-cv2.namedWindow( "result" )
-
+camera = PiCamera()
+camera.resolution = (640, 480)
+camera.framerate = 32
+camera.rotation = 180
+rawCapture = PiRGBArray(camera, size=camera.resolution)
+time.sleep(0.1)
 cap = cv2.VideoCapture("/dev/video0")
-width  = cap.get(3) # float
-height = cap.get(4) # float
+width  = camera.resolution[0]#cap.get(3) # float
+height = camera.resolution[1]#cap.get(4) # float
 center = (width//2,height//2)
 ArdSer = As.ArdunoSender()
 ArdSer.SendStringCommand("i")
 face_cascade = cv2.CascadeClassifier('/home/pi/opencv/opencv-4.1.0/data/haarcascades/haarcascade_frontalface_default.xml')
 
 
-
+# e - закрыть рот f открыть рот  G H I обнуления
 
 def HeadMove(Coord):
-    if Coord[0]>(width//2)+20:
+    if Coord[0]>(width//2)+10:
+        ArdSer.SendStringCommand("d")
+    elif Coord[0]<(width//2)-10:
+        ArdSer.SendStringCommand("c")
+    if Coord[1]>(height//2)+10:
         ArdSer.SendStringCommand("b")
-    elif Coord[0]<(width//2)-20:
+    elif Coord[1]<(height//2)-10:
         ArdSer.SendStringCommand("a")
     print(ArdSer.SerialReadLines())
 
@@ -42,24 +51,32 @@ def FaceDetection(image):
         return image,None,None
 
 
-# HSV фильтр данные которого мы записали использую предыдущую программу.
-hsv_min = np.array((109,180,110), np.uint8)
-hsv_max = np.array((123,237,167), np.uint8)
-flag, img = cap.read()
-flag, img = cap.read()
-while True:
-    flag, img = cap.read()
-    M = cv2.getRotationMatrix2D(center, 270, 1)
-    img = cv2.warpAffine(img, M, (int(width), int(height)))
+cv2.namedWindow( "result" )
+FlTime = 0
+FlagFace = 0
+for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=True):
+    img = frame.array
     img,x,y = FaceDetection(img)
     if x != None and y!= None:
+        if FlagFace == 0:
+            FlagFace = 1
+            print(time.time()-FlTime)
+
+            if time.time()-FlTime > 7:
+                FlTime = time.time()
+                ttsGT.ttsProcPlay("я слежу за тобой")
+        FlTime = time.time()
         HeadMove((x,y))
+    else:
+        FlagFace = 0
     cv2.imshow('result', img)
 
 
     ch = cv2.waitKey(35)
     if ch == 27:
         break
+    rawCapture.truncate()
+    rawCapture.seek(0)
 
 cap.release()
 cv2.destroyAllWindows()

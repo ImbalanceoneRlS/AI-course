@@ -1,8 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="PublishConfigData" autoUpload="Always" serverName="HeadPush" showAutoUploadSettingsWarning="false">
+  <component name="PublishConfigData" autoUpload="Always" serverName="HeadPush102" showAutoUploadSettingsWarning="false">
     <serverData>
       <paths name="HeadPush">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/home/pi/AIcurs" local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="HeadPush102">
         <serverdata>
           <mappings>
             <mapping deploy="/home/pi/AIcurs" local="$PROJECT_DIR$" web="/" />
