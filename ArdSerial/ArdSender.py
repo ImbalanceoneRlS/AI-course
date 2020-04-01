@@ -3,7 +3,7 @@ import time
 
 
 
-class ArdunoSender:
+class ArduinoSender:
 
     def __init__(self,Port = "/dev/ttyACM0",Baudrate = 9600,TimeOut=1):
         self.Port = Port

@@ -15,7 +15,6 @@ while True:
     if textFromSpeech == "спасибо":
         ttsGT.ttsPlay("пожалуйста")
         time.sleep(1)
-        ttsGT.ttsPlay("кожаный ублюдок")
         break
 
     textFromSpeech = textFromSpeech.split()

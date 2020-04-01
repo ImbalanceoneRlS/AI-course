@@ -8,7 +8,7 @@ cap = cv2.VideoCapture("/dev/video0")
 width  = cap.get(3) # float
 height = cap.get(4) # float
 center = (width//2,height//2)
-ArdSer = As.ArdunoSender()
+ArdSer = As.ArduinoSender()
 ArdSer.SendStringCommand("i")
 face_cascade = cv2.CascadeClassifier('/home/pi/opencv/opencv-4.1.0/data/haarcascades/haarcascade_frontalface_default.xml')
 
@@ -46,8 +46,6 @@ def FaceDetection(image):
 # HSV фильтр данные которого мы записали использую предыдущую программу.
 hsv_min = np.array((109,180,110), np.uint8)
 hsv_max = np.array((123,237,167), np.uint8)
-flag, img = cap.read()
-flag, img = cap.read()
 while True:
     flag, img = cap.read()
     M = cv2.getRotationMatrix2D(center, 270, 1)

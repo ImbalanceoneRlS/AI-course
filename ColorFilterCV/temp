@@ -5,7 +5,7 @@ cap = cv2.VideoCapture("/dev/video0") #захват видео с камеры
 width  = cap.get(3) # float ширина видео
 height = cap.get(4) # float высота видео
 center = (width//2,height//2) # центры вашего изображения
-ArdSer = As.ArdunoSender() # объект для работы с ардуино
+ArdSer = As.ArduinoSender() # объект для работы с ардуино
 ArdSer.SendStringCommand("i") # отправить голову в нулевое положение
 
 # вот так поворачивается каждый кадр
