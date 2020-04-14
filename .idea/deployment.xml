@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="PublishConfigData" autoUpload="Always" serverName="HeadPush102" showAutoUploadSettingsWarning="false">
+  <component name="PublishConfigData" serverName="HeadPush102" showAutoUploadSettingsWarning="false">
     <serverData>
+      <paths name="Copy of project-level server 'rosmelodic-pi4-home'">
+        <serverdata>
+          <mappings>
+            <mapping local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
       <paths name="HeadPush">
         <serverdata>
           <mappings>
@@ -16,7 +23,20 @@
           </mappings>
         </serverdata>
       </paths>
+      <paths name="RobolabHeadPi">
+        <serverdata>
+          <mappings>
+            <mapping local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="homePi2">
+        <serverdata>
+          <mappings>
+            <mapping local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
     </serverData>
-    <option name="myAutoUpload" value="ALWAYS" />
   </component>
 </project>
